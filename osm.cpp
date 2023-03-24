@@ -21,7 +21,7 @@ double osm_operation_time(unsigned int iterations){
       int t0 = gettimeofday();
       12 + 22;
       int t1 = gettimeofday();
-      sum += t1- t0
+      sum += t1- t0;
   }
   return sum / iterations;
 }
@@ -39,7 +39,7 @@ double osm_function_time(unsigned int iterations){
       int t0 = gettimeofday();
       empty_function();
       int t1 = gettimeofday();
-      sum += t1- t0
+      sum += t1- t0;
     }
   return sum / iterations;
 }
@@ -57,7 +57,7 @@ double osm_syscall_time(unsigned int iterations){
       int t0 = gettimeofday();
       OSM_NULLSYSCALL();
       int t1 = gettimeofday();
-      sum += t1- t0
+      sum += t1- t0;
     }
   return sum / iterations;
 }
