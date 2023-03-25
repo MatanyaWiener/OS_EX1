@@ -1,0 +1,15 @@
+WhatIDo Program Description:
+First, the program creates two nested directories: welcome_dir_1/welcome_dir2, checks the position of the heap's break point
+and changes it to a new value. Then, the program creates and opens a text file named
+"./welcome_dir_1/welcome_dir_2/welcome_file.txt" and opens another file named etc/localtime.
+
+The program then retrieves information about the etc/localtime file twice (It's size and its permissions), reads its full content,
+moves the offset's position 1506 bytes backwards and reads again from that point to the end of the file. Then the program closes
+the file.
+
+Then the program retrieves information about /welcome_dir_1/welcome_dir_2/welcome_file.txt, and writes into it
+"Welcome to OS-2023". The program closes the file, deletes it using the command unlink, attempts to delete the folder
+/welcome_dir_1/welcome_dir_2/ using the same command, fails to do so, then deletes this folder with rmdir successfully.
+Now the program attempts to to delete the folder /welcome_dir_1 using the same command, fails to do so, then deletes this folder
+with rmdir successfully and exits the program.
+
