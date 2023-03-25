@@ -84,12 +84,13 @@ double osm_syscall_time (unsigned int iterations)
     return -1;
   }
   timeval starttime, endtime;
-  gettimeofday (&starttime, nullptr);
   iterations =
       ((iterations + 9) / 10) * 10; // rounding iterations to the nearest
   // multiple of 10, as allowed in the ex1 pdf
+  long total_time = 0;
   for (int i = 0; i < iterations; i += 10)
   {
+    gettimeofday (&starttime, nullptr);
     OSM_NULLSYSCALL;
     OSM_NULLSYSCALL;
     OSM_NULLSYSCALL;
@@ -100,14 +101,14 @@ double osm_syscall_time (unsigned int iterations)
     OSM_NULLSYSCALL;
     OSM_NULLSYSCALL;
     OSM_NULLSYSCALL;
+    gettimeofday (&endtime, nullptr);
+    long seconds = endtime.tv_sec - starttime.tv_sec;
+    long microseconds = endtime.tv_usec - starttime.tv_usec;
+    if (microseconds < 0){
+      seconds--;
+      microseconds += MILLION;
+    }
+    total_time += seconds * MILLION + microseconds;
   }
-  gettimeofday (&endtime, nullptr);
-  long seconds = endtime.tv_sec - starttime.tv_sec;
-  long microseconds = endtime.tv_usec - starttime.tv_usec;
-  if (microseconds < 0){
-    seconds--;
-    microseconds += MILLION;
-  }
-  long total_time = seconds * MILLION + microseconds;
   return  (double) total_time / iterations;
 }
