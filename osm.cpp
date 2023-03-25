@@ -1,64 +1,113 @@
-//
-// Created by wmata on 24/03/2023.
-//
-#include osm.h
 
+#include <sys/time.h>
+#include "osm.h"
 
-void empty_function(){
-  return;
-}
+#define MILLION 1000000
+void empty_func ()
+{}
 
-/* Time measurement function for a simple arithmetic operation.
-   returns time in nano-seconds upon success,
-   and -1 upon failure.
-   */
-double osm_operation_time(unsigned int iterations){
-  if (iterations == 0){
+double osm_operation_time (unsigned int iterations)
+{
+  if (iterations == 0)
+  {
     return -1;
   }
-  double sum = 0;
-  for(int i=0; i < iterations; i++){
-      int t0 = gettimeofday();
-      12 + 22;
-      int t1 = gettimeofday();
-      sum += t1- t0;
+  timeval starttime;
+  gettimeofday (&starttime, nullptr);
+  iterations =
+      ((iterations + 9) / 10) * 10; // rounding iterations to the nearest
+  // multiple of 5, as allowed in the ex1 pdf
+  for (int i = 0; i < iterations; i += 10)
+  {
+    1 + 1;
+    2 + 2;
+    3 + 3;
+    4 + 4;
+    5 + 5;
+    1 + 1;
+    2 + 2;
+    3 + 3;
+    4 + 4;
+    5 + 5;
   }
-  return sum / iterations;
+  timeval endtime;
+  gettimeofday (&endtime, nullptr);
+  long seconds = endtime.tv_sec - starttime.tv_sec;
+  long microseconds = endtime.tv_usec - starttime.tv_usec;
+  if (microseconds < 0){
+    seconds--;
+    microseconds += MILLION;
+  }
+  long total_time = seconds * MILLION + microseconds;
+  return  (double) total_time / iterations;
 }
 
-/* Time measurement function for an empty function call.
-   returns time in nano-seconds upon success,
-   and -1 upon failure.
-   */
-double osm_function_time(unsigned int iterations){
-  if (iterations == 0){
-      return -1;
-    }
-  double sum = 0;
-  for(int i=0; i < iterations; i++){
-      int t0 = gettimeofday();
-      empty_function();
-      int t1 = gettimeofday();
-      sum += t1- t0;
-    }
-  return sum / iterations;
+double osm_function_time (unsigned int iterations)
+{
+  if (iterations == 0)
+  {
+    return -1;
+  }
+  timeval starttime, endtime;
+  gettimeofday (&starttime, nullptr);
+  iterations =
+      ((iterations + 9) / 10) * 10; // rounding iterations to the nearest
+  // multiple of 10, as allowed in the ex1 pdf
+  for (int i = 0; i < iterations; i += 10)
+  {
+    empty_func ();
+    empty_func ();
+    empty_func ();
+    empty_func ();
+    empty_func ();
+    empty_func ();
+    empty_func ();
+    empty_func ();
+    empty_func ();
+    empty_func ();
+  }
+  gettimeofday (&endtime, nullptr);
+  long seconds = endtime.tv_sec - starttime.tv_sec;
+  long microseconds = endtime.tv_usec - starttime.tv_usec;
+  if (microseconds < 0){
+    seconds--;
+    microseconds += MILLION;
+  }
+  long total_time = seconds * MILLION + microseconds;
+  return  (double) total_time / iterations;
 }
 
-/* Time measurement function for an empty trap into the operating system.
-   returns time in nano-seconds upon success,
-   and -1 upon failure.
-   */
-double osm_syscall_time(unsigned int iterations){
-  if (iterations == 0){
-      return -1;
-    }
-  double sum = 0;
-  for(int i=0; i < iterations; i++){
-      int t0 = gettimeofday();
-      OSM_NULLSYSCALL();
-      int t1 = gettimeofday();
-      sum += t1- t0;
-    }
-  return sum / iterations;
+double osm_syscall_time (unsigned int iterations)
+{
+  if (iterations == 0)
+  {
+    return -1;
+  }
+  timeval starttime, endtime;
+  gettimeofday (&starttime, nullptr);
+  iterations =
+      ((iterations + 9) / 10) * 10; // rounding iterations to the nearest
+  // multiple of 10, as allowed in the ex1 pdf
+  for (int i = 0; i < iterations; i += 10)
+  {
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+    OSM_NULLSYSCALL;
+  }
+  gettimeofday (&endtime, nullptr);
+  long seconds = endtime.tv_sec - starttime.tv_sec;
+  long microseconds = endtime.tv_usec - starttime.tv_usec;
+  if (microseconds < 0){
+    seconds--;
+    microseconds += MILLION;
+  }
+  long total_time = seconds * MILLION + microseconds;
+  return  (double) total_time / iterations;
 }
-
