@@ -12,13 +12,14 @@ double osm_operation_time (unsigned int iterations)
   {
     return -1;
   }
-  timeval starttime;
-  gettimeofday (&starttime, nullptr);
+  timeval starttime, endtime;
+  long total_time = 0;
   iterations =
       ((iterations + 9) / 10) * 10; // rounding iterations to the nearest
   // multiple of 5, as allowed in the ex1 pdf
   for (int i = 0; i < iterations; i += 10)
   {
+    gettimeofday (&starttime, nullptr);
     1 + 1;
     2 + 2;
     3 + 3;
@@ -29,17 +30,17 @@ double osm_operation_time (unsigned int iterations)
     3 + 3;
     4 + 4;
     5 + 5;
+    gettimeofday (&endtime, nullptr);
+    long seconds = endtime.tv_sec - starttime.tv_sec;
+    long microseconds = endtime.tv_usec - starttime.tv_usec;
+    if (microseconds < 0)
+    {
+      seconds--;
+      microseconds += MILLION;
+    }
+    total_time += (seconds * MILLION) + microseconds;
   }
-  timeval endtime;
-  gettimeofday (&endtime, nullptr);
-  long seconds = endtime.tv_sec - starttime.tv_sec;
-  long microseconds = endtime.tv_usec - starttime.tv_usec;
-  if (microseconds < 0){
-    seconds--;
-    microseconds += MILLION;
-  }
-  long total_time = seconds * MILLION + microseconds;
-  return  (double) total_time / iterations;
+  return (double) total_time * 1000 / iterations;
 }
 
 double osm_function_time (unsigned int iterations)
@@ -49,12 +50,13 @@ double osm_function_time (unsigned int iterations)
     return -1;
   }
   timeval starttime, endtime;
-  gettimeofday (&starttime, nullptr);
+  long total_time = 0;
   iterations =
       ((iterations + 9) / 10) * 10; // rounding iterations to the nearest
   // multiple of 10, as allowed in the ex1 pdf
   for (int i = 0; i < iterations; i += 10)
   {
+    gettimeofday (&starttime, nullptr);
     empty_func ();
     empty_func ();
     empty_func ();
@@ -65,16 +67,17 @@ double osm_function_time (unsigned int iterations)
     empty_func ();
     empty_func ();
     empty_func ();
+    gettimeofday (&endtime, nullptr);
+    long seconds = endtime.tv_sec - starttime.tv_sec;
+    long microseconds = endtime.tv_usec - starttime.tv_usec;
+    if (microseconds < 0)
+    {
+      seconds--;
+      microseconds += MILLION;
+    }
+    total_time += (seconds * MILLION) + microseconds;
   }
-  gettimeofday (&endtime, nullptr);
-  long seconds = endtime.tv_sec - starttime.tv_sec;
-  long microseconds = endtime.tv_usec - starttime.tv_usec;
-  if (microseconds < 0){
-    seconds--;
-    microseconds += MILLION;
-  }
-  long total_time = seconds * MILLION + microseconds;
-  return  (double) total_time / iterations;
+  return (double) total_time * 1000 / iterations;
 }
 
 double osm_syscall_time (unsigned int iterations)
@@ -84,10 +87,10 @@ double osm_syscall_time (unsigned int iterations)
     return -1;
   }
   timeval starttime, endtime;
+  long total_time = 0;
   iterations =
       ((iterations + 9) / 10) * 10; // rounding iterations to the nearest
   // multiple of 10, as allowed in the ex1 pdf
-  long total_time = 0;
   for (int i = 0; i < iterations; i += 10)
   {
     gettimeofday (&starttime, nullptr);
@@ -104,11 +107,12 @@ double osm_syscall_time (unsigned int iterations)
     gettimeofday (&endtime, nullptr);
     long seconds = endtime.tv_sec - starttime.tv_sec;
     long microseconds = endtime.tv_usec - starttime.tv_usec;
-    if (microseconds < 0){
+    if (microseconds < 0)
+    {
       seconds--;
       microseconds += MILLION;
     }
-    total_time += seconds * MILLION + microseconds;
+    total_time += (seconds * MILLION) + microseconds;
   }
-  return  (double) total_time / iterations;
+  return (double) 1000 * total_time / iterations;
 }
