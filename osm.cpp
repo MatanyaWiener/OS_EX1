@@ -33,11 +33,6 @@ double osm_operation_time (unsigned int iterations)
     gettimeofday (&endtime, nullptr);
     long seconds = endtime.tv_sec - starttime.tv_sec;
     long microseconds = endtime.tv_usec - starttime.tv_usec;
-    if (microseconds < 0)
-    {
-      seconds--;
-      microseconds += MILLION;
-    }
     total_time += (seconds * MILLION) + microseconds;
   }
   return (double) total_time * TO_NANO / iterations;
@@ -70,11 +65,6 @@ double osm_function_time (unsigned int iterations)
     gettimeofday (&endtime, nullptr);
     long seconds = endtime.tv_sec - starttime.tv_sec;
     long microseconds = endtime.tv_usec - starttime.tv_usec;
-    if (microseconds < 0)
-    {
-      seconds--;
-      microseconds += MILLION;
-    }
     total_time += (seconds * MILLION) + microseconds;
   }
   return (double) total_time * TO_NANO / iterations;
@@ -107,11 +97,6 @@ double osm_syscall_time (unsigned int iterations)
     gettimeofday (&endtime, nullptr);
     long seconds = endtime.tv_sec - starttime.tv_sec;
     long microseconds = endtime.tv_usec - starttime.tv_usec;
-    if (microseconds < 0)
-    {
-      seconds--;
-      microseconds += MILLION;
-    }
     total_time += (seconds * MILLION) + microseconds;
   }
   return (double) TO_NANO * total_time / iterations;
