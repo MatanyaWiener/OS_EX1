@@ -40,7 +40,7 @@ double osm_operation_time (unsigned int iterations)
     }
     total_time += (seconds * MILLION) + microseconds;
   }
-  return (double) total_time * 1000 / iterations;
+  return (double) total_time * TO_NANO / iterations;
 }
 
 double osm_function_time (unsigned int iterations)
@@ -77,7 +77,7 @@ double osm_function_time (unsigned int iterations)
     }
     total_time += (seconds * MILLION) + microseconds;
   }
-  return (double) total_time * 1000 / iterations;
+  return (double) total_time * TO_NANO / iterations;
 }
 
 double osm_syscall_time (unsigned int iterations)
@@ -114,5 +114,5 @@ double osm_syscall_time (unsigned int iterations)
     }
     total_time += (seconds * MILLION) + microseconds;
   }
-  return (double) 1000 * total_time / iterations;
+  return (double) TO_NANO * total_time / iterations;
 }
