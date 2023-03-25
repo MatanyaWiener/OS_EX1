@@ -8,7 +8,6 @@
         "eax", "ebx", "ecx", "edx"*/)
 
 
-static const int TO_NANO = 1000;
 
 /* Time measurement function for a simple arithmetic operation.
    returns time in nano-seconds upon success,

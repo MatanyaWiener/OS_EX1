@@ -2,7 +2,8 @@
 #include <sys/time.h>
 #include "osm.h"
 
-#define MILLION 1000000
+static const int MILLION = 1000000;
+static const int TO_NANO = 1000;
 void empty_func ()
 {}
 
