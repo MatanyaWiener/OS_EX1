@@ -1,3 +1,19 @@
+mwiener, ranho
+Matanya Wiener (207865031), Ran Houdine (313261133)
+Ex: 1
+
+FILES:
+README -- this file
+osm.cpp -- the file with the measurements code
+main.cpp -- the main file that runs osm.cpp
+graph_bar.png -- the graph with our results.
+
+REMARKS:
+Was alotta fun
+
+ANSWERS:
+
+Q1:
 WhatIDo Program Description:
 First, the program creates two nested directories: welcome_dir_1/welcome_dir2, checks the position of the heap's break point
 and changes it to a new value. Then, the program creates and opens a text file named
